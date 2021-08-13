@@ -28,10 +28,10 @@ class Game
     private $year;
 
     /**
-     * @ORM\ManyToOne(targetEntity=publisher::class, inversedBy="games")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Publisher", inversedBy="games")
+     * @ORM\JoinColumn(name="publisher_id", referencedColumnName="id", nullable=true)
      */
-    private $publisher_id;
+    private $publisher;
 
     public function getId(): ?int
     {
@@ -62,14 +62,14 @@ class Game
         return $this;
     }
 
-    public function getPublisherId(): ?publisher
+    public function getPublisherId(): ?Publisher
     {
-        return $this->publisher_id;
+        return $this->publisher;
     }
 
-    public function setPublisherId(?publisher $publisher_id): self
+    public function setPublisherId(?Publisher $publisher_id): self
     {
-        $this->publisher_id = $publisher_id;
+        $this->publisher = $publisher_id;
 
         return $this;
     }

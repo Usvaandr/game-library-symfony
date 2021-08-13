@@ -40,7 +40,7 @@ class Publisher
     private $year;
 
     /**
-     * @ORM\OneToMany(targetEntity=Game::class, mappedBy="publisher_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="publisher_id", orphanRemoval=true)
      */
     private $games;
 

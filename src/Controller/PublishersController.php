@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublishersController extends AbstractController
 {
     /**
-     * @Route("/publishers", name="publishers")
+     * @Route("/", name="homepage")
      */
     public function index(): Response
     {
         return $this->json([
-            'message' => 'Welcome to your new controller!',
+            'message' => 'Welcome to your new homepage controller!',
             'path' => 'src/Controller/PublishersController.php',
         ]);
     }

@@ -1,0 +1,19 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h1>Games Library</h1>
+        </div>
+        <div>
+            <h3>List of Games:</h3>
+            <ul class="list-group">
+                {% for game in games %}
+                    <li class="list-group-item">{{ game }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

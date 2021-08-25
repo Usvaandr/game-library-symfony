@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
+use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,16 +35,9 @@ class PublishersController extends AbstractController
      */
     public function index(): Response
     {
-        $publishers = [
-            'Valve',
-            'Sony',
-            'Nintendo'
-        ];
-        $games = [
-            'Half Life',
-            'Last Of Us',
-            'Mario Cart'
-        ];
+        $publishers = $this->getDoctrine()->getRepository(Publisher::class)->findAll();
+
+        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
 
         return $this->render('home.html.twig', [
             'title' => 'List of publishers!',
@@ -56,11 +51,7 @@ class PublishersController extends AbstractController
      */
     public function show(): Response
     {
-        $games = [
-            'Half Life',
-            'Last Of Us',
-            'Mario Cart'
-        ];
+        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
 
         return $this->render('games.html.twig', [
             'title' => 'List of publishers!',

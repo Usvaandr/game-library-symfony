@@ -12,7 +12,7 @@
             <h3>List of Publishers:</h3>
             <ul class="list-group">
             {% for publisher in publishers %}
-            <li class="list-group-item">{{ publisher }}</li>
+            <li class="list-group-item">{{ publisher.name }}</li>
             {% endfor %}
             </ul>
         </div>
@@ -20,7 +20,7 @@
             <h3>List of Games:</h3>
             <ul class="list-group">
                 {% for game in games %}
-                    <li class="list-group-item">{{ game }}</li>
+                    <li class="list-group-item">{{ game.name }}</li>
                 {% endfor %}
             </ul>
         </div>

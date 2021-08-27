@@ -6,13 +6,40 @@
         <div class="row">
             <h1>Games Library</h1>
         </div>
-        <div>
-            <h3>List of Games:</h3>
-            <ul class="list-group">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Game's Name</th>
+                        <th scope="col">Year Released</th>
+                        <th scope="col">Publisher ID (Reference)</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set idVal = 0 %}
+
                 {% for game in games %}
-                    <li class="list-group-item">{{ game.name }}</li>
+                    <tr>
+                        {% set idVal = idVal + 1 %}
+                        <th scope="row">{{ idVal }}
+                    </th>
+                    <td>{{ game.name }}</td>
+                    <td>{{ game.year }}</td>
+                    <td>{{ game.publisher.id }}</td>
+                    <td>
+                        <a href="#" title="Update Game" data-toggle="tooltip">
+                            <button class="btn btn-warning">Update</button>
+                        </a>
+                        <a href="#" title="Delete Publisher" data-toggle="tooltip">
+                            <button class="btn btn-danger">Delete</button>
+                        </a>
+                    </td>
+                </tr>
                 {% endfor %}
-            </ul>
+                </tbody>
+            </table>
         </div>
     </div>
 

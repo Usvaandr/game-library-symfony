@@ -35,9 +35,9 @@ class PublishersController extends AbstractController
      */
     public function index(): Response
     {
-        $publishers = $this->getDoctrine()->getRepository(Publisher::class)->findAll();
+        $publishers = $this->publisherRepository->findAll();
 
-        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
+        $games = $this->gameRepository->findAll();
 
         return $this->render('home.html.twig', [
             'title' => 'List of publishers!',
@@ -51,7 +51,7 @@ class PublishersController extends AbstractController
      */
     public function show(): Response
     {
-        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
+        $games = $this->gameRepository->findAll();
 
         return $this->render('games.html.twig', [
             'title' => 'List of publishers!',

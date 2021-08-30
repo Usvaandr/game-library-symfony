@@ -74,4 +74,16 @@ class Game
         return $this;
     }
 
+    public function getPublisher(): ?Publisher
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?Publisher $publisher): self
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
 }

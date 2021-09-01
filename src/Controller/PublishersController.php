@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
 use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
@@ -36,11 +35,9 @@ class PublishersController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, EntityManagerInterface $entityManager): Response
     {
         $publishers = $this->publisherRepository->findAll();
-
-        $games = $this->gameRepository->findAll();
 
         $publisher = new Publisher();
         $form = $this->createForm(PublisherFormType::class, $publisher);
@@ -55,23 +52,8 @@ class PublishersController extends AbstractController
         }
 
         return $this->render('home.html.twig', [
-            'title' => 'List of publishers!',
             'publishers' => $publishers,
-            'games' => $games,
             'publisher_form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/games", name="app_games")
-     */
-    public function show(): Response
-    {
-        $games = $this->gameRepository->findAll();
-
-        return $this->render('games.html.twig', [
-            'title' => 'List of publishers!',
-            'games' => $games
         ]);
     }
 }

@@ -34,8 +34,11 @@
                         <td>{{ publisher.country }}</td>
                         <td>{{ publisher.year }}</td>
                         <td>
-                            <a href="#" title="View Games" data-toggle="tooltip">
+                            <a href="{{ path('app_viewPublisher') }}" title="View Games" data-toggle="tooltip">
                                 <button class="btn btn-success">View</button>
+                            </a>
+                            <a href="{{ path('app_editPublisher') }}" title="View Games" data-toggle="tooltip">
+                                <button class="btn btn-warning">Edit</button>
                             </a>
                         </td>
                     </tr>

@@ -35,7 +35,7 @@ class PublishersController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function show(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $publishers = $this->publisherRepository->findAll();
 
@@ -54,6 +54,28 @@ class PublishersController extends AbstractController
         return $this->render('home.html.twig', [
             'publishers' => $publishers,
             'publisher_form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route ("/viewPublisher", name="app_viewPublisher")
+     */
+    public function view(): Response
+    {
+        $games = $this->gameRepository->findAll();
+
+        return $this->render('viewPublisher.html.twig', [
+            'games' => $games,
+        ]);
+    }
+
+    /**
+     * @Route ("/editPublisher", name="app_editPublisher")
+     */
+    public function edit(): Response
+    {
+        return $this->render('editPublisher.html.twig', [
+
         ]);
     }
 }

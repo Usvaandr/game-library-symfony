@@ -6,9 +6,12 @@ use App\Entity\Game;
 use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\PublisherFormType;
 
 class PublishersController extends AbstractController
 {
@@ -33,16 +36,29 @@ class PublishersController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function index(): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $publishers = $this->publisherRepository->findAll();
 
         $games = $this->gameRepository->findAll();
 
+        $publisher = new Publisher();
+        $form = $this->createForm(PublisherFormType::class, $publisher);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($publisher);
+            $entityManager->flush();
+
+            return new Response("Publisher created: " . $publisher->getName());
+        }
+
         return $this->render('home.html.twig', [
             'title' => 'List of publishers!',
             'publishers' => $publishers,
-            'games' => $games
+            'games' => $games,
+            'publisher_form' => $form->createView()
         ]);
     }
 

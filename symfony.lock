@@ -115,6 +115,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/asset": {
+        "version": "v5.3.4"
+    },
     "symfony/cache": {
         "version": "v5.3.4"
     },
@@ -221,6 +224,9 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.7"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.23.1"
     },
@@ -265,6 +271,12 @@
         ]
     },
     "symfony/runtime": {
+        "version": "v5.3.4"
+    },
+    "symfony/security-core": {
+        "version": "v5.3.7"
+    },
+    "symfony/security-csrf": {
         "version": "v5.3.4"
     },
     "symfony/service-contracts": {

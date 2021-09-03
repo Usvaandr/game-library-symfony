@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
+use App\Service\DataFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,12 +25,19 @@ class PublishersController extends AbstractController
      */
     private $gameRepository;
 
+    /**
+     * @var DataFactory
+     */
+    private $dataFactory;
+
     public function __construct(
         PublisherRepository $publisherRepository,
-        GameRepository $gameRepository)
-    {
+        GameRepository $gameRepository,
+        DataFactory $dataFactory
+    ) {
         $this->publisherRepository = $publisherRepository;
         $this->gameRepository = $gameRepository;
+        $this->dataFactory = $dataFactory;
     }
 
     /**
@@ -47,18 +55,17 @@ class PublishersController extends AbstractController
     /**
      * @Route("/createPublisher", name="app_createPublisher")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request): Response
     {
         $publisher = new Publisher();
         $form = $this->createForm(PublisherFormType::class, $publisher);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $response = $this->dataFactory->makePublisherCreateForm($publisher, $form);
 
-            $entityManager->persist($publisher);
-            $entityManager->flush();
-
-            return new Response("Publisher created: " . $publisher->getName());
+        if ($response) {
+            $this->addFlash('success', 'New Publisher Created!');
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('publisher/createPublisher.html.twig', [

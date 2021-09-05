@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Games Library</h1>
+    </div>
+    <div class="row">
+        <h3>Add New Publisher</h3>
+    </div>
+    <div class="row">
+        {{ form(publisher_form) }}
+    </div>
+</div>
+{% endblock %}

@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
 use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
+use App\Service\DataFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\PublisherFormType;
 
 class PublishersController extends AbstractController
 {
@@ -22,12 +25,19 @@ class PublishersController extends AbstractController
      */
     private $gameRepository;
 
+    /**
+     * @var DataFactory
+     */
+    private $dataFactory;
+
     public function __construct(
         PublisherRepository $publisherRepository,
-        GameRepository $gameRepository)
-    {
+        GameRepository $gameRepository,
+        DataFactory $dataFactory
+    ) {
         $this->publisherRepository = $publisherRepository;
         $this->gameRepository = $gameRepository;
+        $this->dataFactory = $dataFactory;
     }
 
     /**
@@ -37,25 +47,51 @@ class PublishersController extends AbstractController
     {
         $publishers = $this->publisherRepository->findAll();
 
-        $games = $this->gameRepository->findAll();
-
         return $this->render('home.html.twig', [
-            'title' => 'List of publishers!',
-            'publishers' => $publishers,
-            'games' => $games
+            'publishers' => $publishers
         ]);
     }
 
     /**
-     * @Route("/games", name="app_games")
+     * @Route("/createPublisher", name="app_createPublisher")
      */
-    public function show(): Response
+    public function create(Request $request): Response
+    {
+        $publisher = new Publisher();
+        $form = $this->createForm(PublisherFormType::class, $publisher);
+        $form->handleRequest($request);
+
+        $response = $this->dataFactory->makePublisherCreateForm($publisher, $form);
+
+        if ($response) {
+            $this->addFlash('success', 'New Publisher Created!');
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('publisher/createPublisher.html.twig', [
+            'publisher_form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route ("/viewPublisher", name="app_viewPublisher")
+     */
+    public function view(): Response
     {
         $games = $this->gameRepository->findAll();
 
-        return $this->render('games.html.twig', [
-            'title' => 'List of publishers!',
-            'games' => $games
+        return $this->render('/publisher/viewPublisher.html.twig', [
+            'games' => $games,
+        ]);
+    }
+
+    /**
+     * @Route ("/editPublisher", name="app_editPublisher")
+     */
+    public function edit(): Response
+    {
+        return $this->render('/publisher/editPublisher.html.twig', [
+
         ]);
     }
 }

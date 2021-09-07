@@ -61,10 +61,10 @@ class PublishersController extends AbstractController
         $form = $this->createForm(PublisherFormType::class, $publisher);
         $form->handleRequest($request);
 
-        $response = $this->dataFactory->makePublisherCreateForm($publisher, $form);
+        $response = $this->dataFactory->makePublisher($publisher, $form);
 
         if ($response) {
-            $this->addFlash('success', 'New Publisher Created!');
+            $this->addFlash('success', $response);
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -95,10 +95,10 @@ class PublishersController extends AbstractController
         $form = $this->createForm(PublisherFormType::class, $publisher);
         $form->handleRequest($request);
 
-        $response = $this->dataFactory->updatePublisherCreateForm($publisher, $form);
+        $response = $this->dataFactory->updatePublisher($publisher, $form);
 
         if ($response) {
-            $this->addFlash('success', 'Publisher Updated!');
+            $this->addFlash('success', $response);
             return $this->redirectToRoute('app_homepage');
         }
 

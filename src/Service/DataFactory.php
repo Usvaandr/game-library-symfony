@@ -20,25 +20,29 @@ class DataFactory
         $this->entityManager = $entityManager;
     }
 
-    public function makePublisherCreateForm(Publisher $publisher, FormInterface $form)
+    public function makePublisher(Publisher $publisher, FormInterface $form): ?string
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->entityManager->persist($publisher);
             $this->entityManager->flush();
 
-            return new Response("Publisher created: " . $publisher->getName());
+            return "Publisher created: " . $publisher->getName();
+        } else {
+            return null;
         }
     }
 
-    public function updatePublisherCreateForm(Publisher $publisher, FormInterface $form)
+    public function updatePublisher(Publisher $publisher, FormInterface $form): ?string
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->entityManager->persist($publisher);
             $this->entityManager->flush();
 
-            return new Response("Publisher updated: " . $publisher->getName());
+            return "Publisher updated: " . $publisher->getName();
+        } else {
+            return null;
         }
     }
 }

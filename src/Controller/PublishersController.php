@@ -86,12 +86,24 @@ class PublishersController extends AbstractController
     }
 
     /**
-     * @Route ("/editPublisher", name="app_editPublisher")
+     * @Route ("/editPublisher/{id}", name="app_editPublisher")
      */
-    public function edit(): Response
+    public function edit(Request $request, int $id): Response
     {
-        return $this->render('/publisher/editPublisher.html.twig', [
 
+        $publisher = $this->publisherRepository->find($id);
+        $form = $this->createForm(PublisherFormType::class, $publisher);
+        $form->handleRequest($request);
+
+        $response = $this->dataFactory->updatePublisherCreateForm($publisher, $form);
+
+        if ($response) {
+            $this->addFlash('success', 'Publisher Updated!');
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('publisher/editPublisher.html.twig', [
+            'publisher_form' => $form->createView()
         ]);
     }
 }

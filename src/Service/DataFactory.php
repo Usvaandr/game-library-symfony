@@ -30,4 +30,15 @@ class DataFactory
             return new Response("Publisher created: " . $publisher->getName());
         }
     }
+
+    public function updatePublisherCreateForm(Publisher $publisher, FormInterface $form)
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($publisher);
+            $this->entityManager->flush();
+
+            return new Response("Publisher updated: " . $publisher->getName());
+        }
+    }
 }

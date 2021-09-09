@@ -6,7 +6,6 @@ use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
 use App\Service\DataFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,10 +60,10 @@ class PublishersController extends AbstractController
         $form = $this->createForm(PublisherFormType::class, $publisher);
         $form->handleRequest($request);
 
-        $response = $this->dataFactory->makePublisherCreateForm($publisher, $form);
+        $response = $this->dataFactory->makePublisher($publisher, $form);
 
         if ($response) {
-            $this->addFlash('success', 'New Publisher Created!');
+            $this->addFlash('success', $response);
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -74,11 +73,11 @@ class PublishersController extends AbstractController
     }
 
     /**
-     * @Route ("/viewPublisher", name="app_viewPublisher")
+     * @Route ("/viewPublisher/{id}", name="app_viewPublisher")
      */
-    public function view(): Response
+    public function view(int $id): Response
     {
-        $games = $this->gameRepository->findAll();
+        $games = $this->gameRepository->findByPublisher($id);
 
         return $this->render('/publisher/viewPublisher.html.twig', [
             'games' => $games,
@@ -86,12 +85,23 @@ class PublishersController extends AbstractController
     }
 
     /**
-     * @Route ("/editPublisher", name="app_editPublisher")
+     * @Route ("/editPublisher/{id}", name="app_editPublisher")
      */
-    public function edit(): Response
+    public function edit(Request $request, int $id): Response
     {
-        return $this->render('/publisher/editPublisher.html.twig', [
+        $publisher = $this->publisherRepository->find($id);
+        $form = $this->createForm(PublisherFormType::class, $publisher);
+        $form->handleRequest($request);
 
+        $response = $this->dataFactory->updatePublisher($publisher, $form);
+
+        if ($response) {
+            $this->addFlash('success', $response);
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('publisher/editPublisher.html.twig', [
+            'publisher_form' => $form->createView()
         ]);
     }
 }

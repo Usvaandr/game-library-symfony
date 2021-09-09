@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Game;
 use App\Entity\Publisher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -20,14 +21,55 @@ class DataFactory
         $this->entityManager = $entityManager;
     }
 
-    public function makePublisherCreateForm(Publisher $publisher, FormInterface $form)
+    public function makePublisher(Publisher $publisher, FormInterface $form): ?string
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->entityManager->persist($publisher);
             $this->entityManager->flush();
 
-            return new Response("Publisher created: " . $publisher->getName());
+            return "Publisher created: " . $publisher->getName();
         }
+
+        return null;
+    }
+
+    public function updatePublisher(Publisher $publisher, FormInterface $form): ?string
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($publisher);
+            $this->entityManager->flush();
+
+            return "Publisher updated: " . $publisher->getName();
+        }
+
+        return null;
+    }
+
+    public function makeGame(Game $game, FormInterface $form): ?string
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+
+            return "Game created: " . $game->getName();
+        }
+
+        return null;
+    }
+
+    public function updateGame(Game $game, FormInterface $form): ?string
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+
+            return "Game updated: " . $game->getName();
+        }
+
+        return null;
     }
 }

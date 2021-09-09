@@ -72,4 +72,14 @@ class DataFactory
 
         return null;
     }
+
+    public function deletePublisher(Publisher $publisher): string
+    {
+        $publisher->setIsDeleted(true);
+
+        $this->entityManager->persist($publisher);
+        $this->entityManager->flush();
+
+        return "Game deleted.";
+    }
 }

@@ -104,4 +104,16 @@ class PublishersController extends AbstractController
             'publisher_form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route ("/deletePublisher/{id}", name="app_deletePublisher")
+     */
+    public function delete(Publisher $publisher): Response
+    {
+        $response = $this->dataFactory->deletePublisher($publisher);
+
+        $this->addFlash('success', $response);
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

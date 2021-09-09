@@ -21,11 +21,13 @@ final class Version20210909124441 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE publisher ADD is_deleted TINYINT(1) DEFAULT \'0\'');
+        $this->addSql('ALTER TABLE game ADD is_deleted TINYINT(1) DEFAULT \'0\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE game DROP is_deleted');
         $this->addSql('ALTER TABLE publisher DROP is_deleted');
     }
 }

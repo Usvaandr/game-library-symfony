@@ -52,7 +52,7 @@ class Publisher
     /**
      * @ORM\Column(type="boolean", options={"default":"0"}, nullable=true)
      */
-    private $isDeleted;
+    private $isDeleted = 0;
 
     public function __construct()
     {
@@ -108,6 +108,18 @@ class Publisher
     public function setYear(int $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getIsDeleted(): int
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(int $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

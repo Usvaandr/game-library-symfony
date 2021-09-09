@@ -6,7 +6,6 @@ use App\Entity\Publisher;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
 use App\Service\DataFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,11 +73,11 @@ class PublishersController extends AbstractController
     }
 
     /**
-     * @Route ("/viewPublisher", name="app_viewPublisher")
+     * @Route ("/viewPublisher/{id}", name="app_viewPublisher")
      */
-    public function view(): Response
+    public function view(int $id): Response
     {
-        $games = $this->gameRepository->findAll();
+        $games = $this->gameRepository->findByPublisher($id);
 
         return $this->render('/publisher/viewPublisher.html.twig', [
             'games' => $games,

@@ -15,7 +15,7 @@ class GameFormType extends AbstractType
         $builder
             ->add('name')
             ->add('year')
-            ->add('publisher')
+//            ->add('publisher')
             ->add('Submit', SubmitType::class)
         ;
     }

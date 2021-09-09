@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Game;
 use App\Entity\Publisher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -41,6 +42,32 @@ class DataFactory
             $this->entityManager->flush();
 
             return "Publisher updated: " . $publisher->getName();
+        } else {
+            return null;
+        }
+    }
+
+    public function makeGame(Game $game, FormInterface $form): ?string
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+
+            return "Game created: " . $game->getName();
+        } else {
+            return null;
+        }
+    }
+
+    public function editGame(Game $game, FormInterface $form): ?string
+    {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+
+            return "Game updated: " . $game->getName();
         } else {
             return null;
         }

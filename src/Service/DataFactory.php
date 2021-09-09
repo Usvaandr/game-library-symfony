@@ -29,9 +29,9 @@ class DataFactory
             $this->entityManager->flush();
 
             return "Publisher created: " . $publisher->getName();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public function updatePublisher(Publisher $publisher, FormInterface $form): ?string
@@ -42,9 +42,9 @@ class DataFactory
             $this->entityManager->flush();
 
             return "Publisher updated: " . $publisher->getName();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public function makeGame(Game $game, FormInterface $form): ?string
@@ -55,9 +55,9 @@ class DataFactory
             $this->entityManager->flush();
 
             return "Game created: " . $game->getName();
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public function updateGame(Game $game, FormInterface $form): ?string
@@ -68,8 +68,8 @@ class DataFactory
             $this->entityManager->flush();
 
             return "Game updated: " . $game->getName();
-        } else {
-            return null;
         }
+
+        return null;
     }
 }

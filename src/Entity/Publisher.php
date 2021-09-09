@@ -49,6 +49,11 @@ class Publisher
      */
     private $games;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"}, nullable=true)
+     */
+    private $isDeleted;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();

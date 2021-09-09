@@ -32,7 +32,7 @@
                     <td>{{ game.year }}</td>
 {#                            <td>{{ game.publisher.id }}</td>#}
                     <td>
-                        <a href="#" title="Update Game" data-toggle="tooltip">
+                        <a href="{{ path('app_editGame', { 'id':game.id }) }}" title="Update Game" data-toggle="tooltip">
                             <button class="btn btn-warning">Edit</button>
                         </a>
                         <a href="#" title="Delete Publisher" data-toggle="tooltip">

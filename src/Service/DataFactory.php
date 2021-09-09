@@ -60,7 +60,7 @@ class DataFactory
         }
     }
 
-    public function editGame(Game $game, FormInterface $form): ?string
+    public function updateGame(Game $game, FormInterface $form): ?string
     {
         if ($form->isSubmitted() && $form->isValid()) {
 

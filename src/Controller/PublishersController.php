@@ -90,7 +90,6 @@ class PublishersController extends AbstractController
      */
     public function edit(Request $request, int $id): Response
     {
-
         $publisher = $this->publisherRepository->find($id);
         $form = $this->createForm(PublisherFormType::class, $publisher);
         $form->handleRequest($request);

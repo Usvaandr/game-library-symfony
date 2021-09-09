@@ -63,4 +63,25 @@ class GamesController extends AbstractController
             'game_form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/editGame/{id}", name="app_editGame")
+     */
+    public function edit(Request $request, int $id): Response
+    {
+        $game = $this->gameRepository->find($id);
+        $form = $this->createForm(GameFormType::class, $game);
+        $form->handleRequest($request);
+
+        $response = $this->dataFactory->updateGame($game, $form);
+
+        if ($response) {
+            $this->addFlash('success', $response);
+            return $this->redirectToRoute('app_games');
+        }
+
+        return $this->render('game/editGame.html.twig', [
+            'game_form' => $form->createView()
+        ]);
+    }
 }

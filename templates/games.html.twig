@@ -16,7 +16,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Game's Name</th>
                         <th scope="col">Year Released</th>
-{#                        <th scope="col">Publisher ID (Reference)</th>#}
+                        <th scope="col">IsDeleted</th>
+                        {#                        <th scope="col">Publisher ID (Reference)</th>#}
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -30,12 +31,13 @@
                     </th>
                     <td>{{ game.name }}</td>
                     <td>{{ game.year }}</td>
-{#                            <td>{{ game.publisher.id }}</td>#}
+                    <td>{{ game.isDeleted }}</td>
+{#                    <td>{{ game.publisher.id }}</td>#}
                     <td>
                         <a href="{{ path('app_editGame', { 'id':game.id }) }}" title="Update Game" data-toggle="tooltip">
                             <button class="btn btn-warning">Edit</button>
                         </a>
-                        <a href="#" title="Delete Publisher" data-toggle="tooltip">
+                        <a href="{{ path('app_deleteGame', { 'id':game.id }) }}" title="Delete Publisher" data-toggle="tooltip">
                             <button class="btn btn-danger">Delete</button>
                         </a>
                     </td>

@@ -49,6 +49,11 @@ class Publisher
      */
     private $games;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDeleted = 0;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -107,33 +112,28 @@ class Publisher
         return $this;
     }
 
+    public function getIsDeleted(): int
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(int $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    public function hasGames(): bool
+    {
+        return $this->getGames()->isEmpty();
+    }
+
     /**
      * @return Collection|Game[]
      */
     public function getGames(): Collection
     {
         return $this->games;
-    }
-
-    public function addGame(Game $game): self
-    {
-        if (!$this->games->contains($game)) {
-            $this->games[] = $game;
-            $game->setPublisherId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGame(Game $game): self
-    {
-        if ($this->games->removeElement($game)) {
-            // set the owning side to null (unless already changed)
-            if ($game->getPublisherId() === $this) {
-                $game->setPublisherId(null);
-            }
-        }
-
-        return $this;
     }
 }

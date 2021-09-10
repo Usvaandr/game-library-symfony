@@ -26,7 +26,6 @@
                     {% set idVal = 0 %}
 
                     {% for publisher in publishers %}
-                        {% if publisher.isDeleted == false %}
                     <tr>
                         {% set idVal = idVal + 1 %}
                         <th scope="row">{{ idVal }}
@@ -48,7 +47,6 @@
                             </a>
                         </td>
                     </tr>
-                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

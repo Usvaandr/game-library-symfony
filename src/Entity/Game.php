@@ -38,9 +38,9 @@ class Game
     private $publisher;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"0"}, nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0}, nullable=true)
      */
-    private $isDeleted;
+    private $isDeleted = 0;
 
     public function getId(): ?int
     {
@@ -71,14 +71,14 @@ class Game
         return $this;
     }
 
-    public function getPublisherId(): ?Publisher
+    public function getIsDeleted(): int
     {
-        return $this->publisher;
+        return $this->isDeleted;
     }
 
-    public function setPublisherId(?Publisher $publisher_id): self
+    public function setIsDeleted(int $isDeleted): self
     {
-        $this->publisher = $publisher_id;
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

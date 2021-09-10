@@ -44,7 +44,7 @@ class PublishersController extends AbstractController
      */
     public function index(): Response
     {
-        $publishers = $this->publisherRepository->findAll();
+        $publishers = $this->publisherRepository->findByIsDeleted(false);
 
         return $this->render('home.html.twig', [
             'publishers' => $publishers
@@ -110,9 +110,14 @@ class PublishersController extends AbstractController
      */
     public function delete(Publisher $publisher): Response
     {
-        $response = $this->dataFactory->deletePublisher($publisher);
-
-        $this->addFlash('success', $response);
+        if ($publisher->getGames()->isEmpty()) {
+            $response = $this->dataFactory->deletePublisher($publisher);
+            $type = "success";
+        } else {
+            $response = "Delete publisher games first.";
+            $type = "warning";
+        }
+        $this->addFlash($type, $response);
 
         return $this->redirectToRoute('app_homepage');
     }

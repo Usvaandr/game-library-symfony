@@ -36,7 +36,7 @@ class GamesController extends AbstractController
      */
     public function index(): Response
     {
-        $games = $this->gameRepository->findAll();
+        $games = $this->gameRepository->findByIsDeleted(false);
 
         return $this->render('games.html.twig', [
             'games' => $games
@@ -83,5 +83,17 @@ class GamesController extends AbstractController
         return $this->render('game/editGame.html.twig', [
             'game_form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route ("/deleteGame/{id}", name="app_deleteGame")
+     */
+    public function delete(Game $game): Response
+    {
+        $response = $this->dataFactory->deleteGame($game);
+
+        $this->addFlash("success", $response);
+
+        return $this->redirectToRoute('app_games');
     }
 }

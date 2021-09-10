@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Enums\FlagType;
 use App\Form\GameFormType;
 use App\Repository\GameRepository;
 use App\Service\DataFactory;
@@ -55,7 +56,7 @@ class GamesController extends AbstractController
         $response = $this->dataFactory->makeGame($game, $form);
 
         if ($response) {
-            $this->addFlash('success', $response);
+            $this->addFlash(FlagType::SUCCESS_TYPE, $response);
             return $this->redirectToRoute('app_games');
         }
 
@@ -76,7 +77,7 @@ class GamesController extends AbstractController
         $response = $this->dataFactory->updateGame($game, $form);
 
         if ($response) {
-            $this->addFlash('success', $response);
+            $this->addFlash(FlagType::SUCCESS_TYPE, $response);
             return $this->redirectToRoute('app_games');
         }
 
@@ -92,7 +93,7 @@ class GamesController extends AbstractController
     {
         $response = $this->dataFactory->deleteGame($game);
 
-        $this->addFlash("success", $response);
+        $this->addFlash(FlagType::SUCCESS_TYPE, $response);
 
         return $this->redirectToRoute('app_games');
     }

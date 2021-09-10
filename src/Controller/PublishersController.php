@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Publisher;
+use App\Enums\FlagType;
 use App\Repository\GameRepository;
 use App\Repository\PublisherRepository;
 use App\Service\DataFactory;
@@ -63,7 +64,7 @@ class PublishersController extends AbstractController
         $response = $this->dataFactory->makePublisher($publisher, $form);
 
         if ($response) {
-            $this->addFlash('success', $response);
+            $this->addFlash(FlagType::SUCCESS_TYPE, $response);
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -96,7 +97,7 @@ class PublishersController extends AbstractController
         $response = $this->dataFactory->updatePublisher($publisher, $form);
 
         if ($response) {
-            $this->addFlash('success', $response);
+            $this->addFlash(FlagType::SUCCESS_TYPE, $response);
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -110,13 +111,14 @@ class PublishersController extends AbstractController
      */
     public function delete(Publisher $publisher): Response
     {
-        if ($publisher->getGames()->isEmpty()) {
+        if ($publisher->hasGames()) {
             $response = $this->dataFactory->deletePublisher($publisher);
-            $type = "success";
+            $type = FlagType::SUCCESS_TYPE;
         } else {
             $response = "Delete publisher games first.";
-            $type = "warning";
+            $type = FlagType::WARNING_TYPE;
         }
+
         $this->addFlash($type, $response);
 
         return $this->redirectToRoute('app_homepage');

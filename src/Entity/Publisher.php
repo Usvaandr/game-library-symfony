@@ -50,7 +50,7 @@ class Publisher
     private $games;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"0"}, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted = 0;
 
@@ -124,33 +124,16 @@ class Publisher
         return $this;
     }
 
+    public function hasGames(): bool
+    {
+        return $this->getGames()->isEmpty();
+    }
+
     /**
      * @return Collection|Game[]
      */
     public function getGames(): Collection
     {
         return $this->games;
-    }
-
-    public function addGame(Game $game): self
-    {
-        if (!$this->games->contains($game)) {
-            $this->games[] = $game;
-            $game->setPublisherId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGame(Game $game): self
-    {
-        if ($this->games->removeElement($game)) {
-            // set the owning side to null (unless already changed)
-            if ($game->getPublisherId() === $this) {
-                $game->setPublisherId(null);
-            }
-        }
-
-        return $this;
     }
 }

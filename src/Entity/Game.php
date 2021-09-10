@@ -38,7 +38,7 @@ class Game
     private $publisher;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0}, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted = 0;
 

@@ -6,7 +6,6 @@ use App\Entity\Game;
 use App\Entity\Publisher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class DataFactory
 {
@@ -91,5 +90,21 @@ class DataFactory
         $this->entityManager->flush();
 
         return "Game deleted.";
+    }
+
+    public function deleteAll(Publisher $publisher, array $games): string
+    {
+//        dd($game);
+        foreach ($games as $game){
+            $game->setIsDeleted(true);
+            $this->entityManager->persist($game);
+        }
+
+        $publisher->setIsDeleted(true);
+
+        $this->entityManager->persist($publisher);
+        $this->entityManager->flush();
+
+        return "Publisher will all his games was deleted successfully";
     }
 }

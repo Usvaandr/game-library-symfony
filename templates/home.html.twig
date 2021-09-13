@@ -36,14 +36,17 @@
                         <td>{{ publisher.year }}</td>
                         <td>{{ publisher.isDeleted }}</td>
                         <td>
-                            <a href="{{ path('app_viewPublisher', { 'id':publisher.id }) }}" title="View Games" data-toggle="tooltip">
+                            <a href="{{ path('app_viewPublisher', { 'id':publisher.id }) }}" title="View Publisher" data-toggle="tooltip">
                                 <button class="btn btn-success">View</button>
                             </a>
-                            <a href="{{ path('app_editPublisher', { 'id':publisher.id }) }}" title="View Games" data-toggle="tooltip">
+                            <a href="{{ path('app_editPublisher', { 'id':publisher.id }) }}" title="Edit Publisher" data-toggle="tooltip">
                                 <button class="btn btn-warning">Edit</button>
                             </a>
-                            <a href="{{ path('app_deletePublisher', { 'id':publisher.id }) }}" title="View Games" data-toggle="tooltip">
+                            <a href="{{ path('app_deletePublisher', { 'id':publisher.id }) }}" title="Delete Publisher" data-toggle="tooltip">
                                 <button class="btn btn-danger">Delete</button>
+                            </a>
+                            <a href="{{ path('app_deleteAll', { 'id':publisher.id }) }}" title="Delete All" data-toggle="tooltip">
+                                <button class="btn btn-dark">Delete All</button>
                             </a>
                         </td>
                     </tr>

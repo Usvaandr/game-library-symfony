@@ -94,7 +94,6 @@ class DataFactory
 
     public function deleteAll(Publisher $publisher, array $games): string
     {
-//        dd($game);
         foreach ($games as $game){
             $game->setIsDeleted(true);
             $this->entityManager->persist($game);

@@ -15,7 +15,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Publisher's Name</th>
-                        <th scope="col">Net Worth</th>
+                        <th scope="col">Net Worth ($, bn)</th>
                         <th scope="col">Country</th>
                         <th scope="col">Year Founded</th>
                         <th scope="col">IsDeleted</th>
@@ -33,7 +33,7 @@
                         <td>{{ publisher.name }}</td>
                         <td>{{ publisher.value }}</td>
                         <td>{{ publisher.country }}</td>
-                        <td>{{ publisher.year }}</td>
+                        <td>{{ publisher.year|date('Y') }}</td>
                         <td>{{ publisher.isDeleted }}</td>
                         <td>
                             <a href="{{ path('app_viewPublisher', { 'id':publisher.id }) }}" title="View Publisher" data-toggle="tooltip">

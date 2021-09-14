@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PublisherRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,31 +21,37 @@ class Publisher
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @var string
      * @ORM\Column(type="text", length=100)
      */
     private $value;
 
     /**
+     * @var string
      * @ORM\Column(type="text", length=100)
      */
     private $country;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var DateTime
+     * @ORM\Column(type="date")
      */
     private $year;
 
     /**
+     * @var Game[]
      * @ORM\OneToMany(targetEntity="Game", mappedBy="publisher", orphanRemoval=true)
      */
     private $games;
 
     /**
+     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted = 0;
@@ -95,12 +102,12 @@ class Publisher
         return $this;
     }
 
-    public function getYear(): ?int
+    public function getYear(): ?DateTime
     {
         return $this->year;
     }
 
-    public function setYear(int $year): self
+    public function setYear(DateTime $year): self
     {
         $this->year = $year;
 

@@ -19,7 +19,10 @@ class GameFormType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'constraints' => [
-                    new NotBlank()
+                    new NotBlank(),
+                    new Length([
+                        'max' => 20
+                    ])
                 ]
             ])
             ->add('year', IntegerType::class, [
@@ -37,6 +40,9 @@ class GameFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Game::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id' => 'game_item'
         ]);
     }
 }

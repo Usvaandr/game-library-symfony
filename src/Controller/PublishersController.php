@@ -130,9 +130,7 @@ class PublishersController extends AbstractController
     public function deleteAll($id): Response
     {
         $publisher = $this->publisherRepository->find($id);
-        $games = $this->gameRepository->findByPublisher($id);
-
-        $response = $this->dataFactory->deleteAll($publisher, $games);
+        $response = $this->dataFactory->deleteAll($publisher);
 
         $this->addFlash(FlagType::SUCCESS_TYPE, $response);
 

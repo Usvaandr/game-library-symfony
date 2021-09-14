@@ -92,9 +92,11 @@ class DataFactory
         return "Game deleted.";
     }
 
-    public function deleteAll(Publisher $publisher, array $games): string
+    public function deleteAll(Publisher $publisher): string
     {
-        foreach ($games as $game){
+        $games = $publisher->getGames();
+
+        foreach ($games as $game) {
             $game->setIsDeleted(true);
             $this->entityManager->persist($game);
         }

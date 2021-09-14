@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GameRepository::class)
@@ -19,25 +18,26 @@ class Game
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      */
     private $name;
 
     /**
+     * @var string
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
-     * @Assert\Length(4)
      */
     private $year;
 
     /**
+     * @var Publisher
      * @ORM\ManyToOne(targetEntity="Publisher", inversedBy="games")
      * @ORM\JoinColumn(name="publisher_id", referencedColumnName="id", nullable=true)
      */
     private $publisher;
 
     /**
+     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted = 0;

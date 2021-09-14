@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\PublisherRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PublisherRepository::class)
@@ -21,35 +21,37 @@ class Publisher
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      */
     private $name;
 
     /**
+     * @var string
      * @ORM\Column(type="text", length=100)
-     * @Assert\NotBlank
      */
     private $value;
 
     /**
+     * @var string
      * @ORM\Column(type="text", length=100)
-     * @Assert\NotBlank
      */
     private $country;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank
+     * @var DateTime
+     * @ORM\Column(type="date")
      */
     private $year;
 
     /**
+     * @var Game[]
      * @ORM\OneToMany(targetEntity="Game", mappedBy="publisher", orphanRemoval=true)
      */
     private $games;
 
     /**
+     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted = 0;
@@ -100,12 +102,12 @@ class Publisher
         return $this;
     }
 
-    public function getYear(): ?int
+    public function getYear(): ?DateTime
     {
         return $this->year;
     }
 
-    public function setYear(int $year): self
+    public function setYear(DateTime $year): self
     {
         $this->year = $year;
 

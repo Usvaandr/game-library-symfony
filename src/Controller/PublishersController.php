@@ -123,4 +123,17 @@ class PublishersController extends AbstractController
 
         return $this->redirectToRoute('app_homepage');
     }
+
+    /**
+     * @Route ("/deleteAll/{id}", name="app_deleteAll")
+     */
+    public function deleteAll($id): Response
+    {
+        $publisher = $this->publisherRepository->find($id);
+        $response = $this->dataFactory->deleteAll($publisher);
+
+        $this->addFlash(FlagType::SUCCESS_TYPE, $response);
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

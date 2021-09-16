@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DeletedController extends AbstractController
+class DeletePanelController extends AbstractController
 {
     /**
      * @var PublisherRepository
@@ -58,9 +58,20 @@ class DeletedController extends AbstractController
      */
     public function restorePublisher(Publisher $publisher)
     {
-        $response = $this->dataFactory->restorePublisher($publisher);
+        $check = $this->publisherRepository->findOneBy(array(
+            'name' => $publisher->getName(),
+            'isDeleted' => false
+        ));
 
-        $this->addFlash(FlagType::SUCCESS_TYPE, $response);
+        if (!$check){
+            $response = $this->dataFactory->restorePublisher($publisher);
+            $type = FlagType::SUCCESS_TYPE;
+        } else {
+            $response = "Publisher with this name already exists.";
+            $type = FlagType::WARNING_TYPE;
+        }
+
+        $this->addFlash($type, $response);
 
         return $this->redirectToRoute('app_deleted');
     }
@@ -70,9 +81,20 @@ class DeletedController extends AbstractController
      */
     public function restoreGame(Game $game)
     {
-        $response = $this->dataFactory->restoreGame($game);
+        $check = $this->gameRepository->findOneBy(array(
+            'name' => $game->getName(),
+            'isDeleted' => false
+        ));
 
-        $this->addFlash(FlagType::SUCCESS_TYPE, $response);
+        if (!$check){
+            $response = $this->dataFactory->restoreGame($game);
+            $type = FlagType::SUCCESS_TYPE;
+        } else {
+            $response = "Game with this name already exists.";
+            $type = FlagType::WARNING_TYPE;
+        }
+
+        $this->addFlash($type, $response);
 
         return $this->redirectToRoute('app_deleted');
     }

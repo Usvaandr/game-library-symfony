@@ -108,4 +108,24 @@ class DataFactory
 
         return "Publisher will all his games was deleted successfully";
     }
+
+    public function restorePublisher(Publisher $publisher): string
+    {
+        $publisher->setIsDeleted(false);
+
+        $this->entityManager->persist($publisher);
+        $this->entityManager->flush();
+
+        return "Publisher restored.";
+    }
+
+    public function restoreGame(Game $game): string
+    {
+        $game->setIsDeleted(false);
+
+        $this->entityManager->persist($game);
+        $this->entityManager->flush();
+
+        return "Game restored.";
+    }
 }

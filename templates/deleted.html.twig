@@ -1,0 +1,91 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h1>Games Library</h1>
+        </div>
+        <div class="row">
+            <h3>Deleted Publishers List</h3>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Publisher's Name</th>
+                    <th scope="col">Net Worth ($, bn)</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Year Founded</th>
+                    <th scope="col">IsDeleted</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set idVal = 0 %}
+
+                {% for publisher in publishers %}
+                    <tr>
+                        {% set idVal = idVal + 1 %}
+                        <th scope="row">{{ idVal }}
+                        </th>
+                        <td>{{ publisher.name }}</td>
+                        <td>{{ publisher.value }}</td>
+                        <td>{{ publisher.country }}</td>
+                        <td>{{ publisher.year|date('Y') }}</td>
+                        <td>{{ publisher.isDeleted }}</td>
+                        <td>
+                            <a href="{{ path('app_editPublisher', { 'id':publisher.id }) }}" title="Edit Publisher" data-toggle="tooltip">
+                                <button class="btn btn-warning">Edit</button>
+                            </a>
+                            <a href="{{ path('app_restorePublisher', { 'id':publisher.id }) }}" title="View Publisher" data-toggle="tooltip">
+                                <button class="btn btn-dark">Restore</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <h3>Deleted Games List</h3>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Game's Name</th>
+                        <th scope="col">Year Released</th>
+                        <th scope="col">IsDeleted</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set idVal = 0 %}
+
+                {% for game in games %}
+                    <tr>
+                        {% set idVal = idVal + 1 %}
+                        <th scope="row">{{ idVal }}
+                        </th>
+                        <td>{{ game.name }}</td>
+                        <td>{{ game.year }}</td>
+                        <td>{{ game.isDeleted }}</td>
+                        <td>
+                            <a href="{{ path('app_editGame', { 'id':game.id }) }}" title="Update Game" data-toggle="tooltip">
+                                <button class="btn btn-warning">Edit</button>
+                            </a>
+                            <a href="{{ path('app_restoreGame', { 'id':game.id }) }}" title="Delete Publisher" data-toggle="tooltip">
+                                <button class="btn btn-dark">Restore</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

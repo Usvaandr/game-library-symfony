@@ -56,14 +56,14 @@ class DeletePanelController extends AbstractController
     /**
      * @Route("/deleted/restorePublisher/{id}", name="app_restorePublisher")
      */
-    public function restorePublisher(Publisher $publisher)
+    public function restorePublisher(Publisher $publisher): Response
     {
         $check = $this->publisherRepository->findOneBy(array(
             'name' => $publisher->getName(),
             'isDeleted' => false
         ));
 
-        if (!$check){
+        if (!$check) {
             $response = $this->dataFactory->restorePublisher($publisher);
             $type = FlagType::SUCCESS_TYPE;
         } else {
@@ -79,14 +79,14 @@ class DeletePanelController extends AbstractController
     /**
      * @Route("/deleted/restoreGame/{id}", name="app_restoreGame")
      */
-    public function restoreGame(Game $game)
+    public function restoreGame(Game $game): Response
     {
         $check = $this->gameRepository->findOneBy(array(
             'name' => $game->getName(),
             'isDeleted' => false
         ));
 
-        if (!$check){
+        if (!$check) {
             $response = $this->dataFactory->restoreGame($game);
             $type = FlagType::SUCCESS_TYPE;
         } else {

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Game;
+use App\Entity\Publisher;
+use App\Repository\PublisherRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,6 +17,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class GameFormType extends AbstractType
 {
+    private $publisherRepository;
+
+    public function __construct(PublisherRepository $publisherRepository)
+    {
+        $this->publisherRepository = $publisherRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -31,7 +41,13 @@ class GameFormType extends AbstractType
                     new Length(4),
                 ]
             ])
-//            ->add('publisher')
+            ->add('publisher', EntityType::class, [
+                'placeholder' => 'Choose the publisher',
+                'class' => Publisher::class,
+                'choice_label' => 'name',
+                'choices' => $this->publisherRepository
+                    -> findByIsDeleted(false)
+            ])
             ->add('Submit', SubmitType::class)
         ;
     }

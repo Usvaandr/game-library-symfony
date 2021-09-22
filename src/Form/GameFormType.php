@@ -17,6 +17,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class GameFormType extends AbstractType
 {
+    /**
+     * @var PublisherRepository
+     */
     private $publisherRepository;
 
     public function __construct(PublisherRepository $publisherRepository)
@@ -27,27 +30,34 @@ class GameFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', TextType::class,
+                [
                 'constraints' => [
                     new NotBlank(),
                     new Length([
                         'max' => 20
-                    ])
+                        ])
+                    ]
                 ]
-            ])
-            ->add('year', IntegerType::class, [
-                'constraints' => [
+            )
+            ->add('year', IntegerType::class,
+                [
+                'constraints' =>
+                    [
                     new NotBlank(),
                     new Length(4),
+                    ]
                 ]
-            ])
-            ->add('publisher', EntityType::class, [
+            )
+            ->add('publisher', EntityType::class,
+                [
                 'placeholder' => 'Choose the publisher',
                 'class' => Publisher::class,
                 'choice_label' => 'name',
                 'choices' => $this->publisherRepository
                     -> findByIsDeleted(false)
-            ])
+                ]
+            )
             ->add('Submit', SubmitType::class)
         ;
     }

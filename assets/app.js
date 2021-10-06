@@ -48,3 +48,23 @@ setTimeout(() => {
 $(document).ready(function(){
     console.log("jQuery working properly");
 });
+
+$(".slideButton1").click(function(){
+    if($(this).html() == "-"){
+        $(this).html("+");
+    }
+    else{
+        $(this).html("-");
+    }
+    $(".slideToggle1").slideToggle();
+});
+
+$(".slideButton2").click(function(){
+    if($(this).html() == "-"){
+        $(this).html("+");
+    }
+    else{
+        $(this).html("-");
+    }
+    $(".slideToggle2").slideToggle();
+});

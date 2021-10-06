@@ -7,51 +7,54 @@
             <h1>Games Library</h1>
         </div>
         <div class="row">
-            <h3>Deleted Publishers List</h3>
+            <h3 class="col">Deleted Publishers List</h3>
+            <div class="col slideButton1">-</div>
         </div>
-        <div class="row">
+        <div class="row slideToggle1">
             <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Publisher's Name</th>
-                    <th scope="col">Net Worth ($, bn)</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Year Founded</th>
-                    <th scope="col">IsDeleted</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% set idVal = 0 %}
-
-                {% for publisher in publishers %}
+                    <thead>
                     <tr>
-                        {% set idVal = idVal + 1 %}
-                        <th scope="row">{{ idVal }}
-                        </th>
-                        <td>{{ publisher.name }}</td>
-                        <td>{{ publisher.value }}</td>
-                        <td>{{ publisher.country }}</td>
-                        <td>{{ publisher.year|date('Y') }}</td>
-                        <td>{{ publisher.isDeleted }}</td>
-                        <td>
-                            <a href="{{ path('app_editPublisher', { 'id':publisher.id }) }}" title="Edit Publisher" data-toggle="tooltip">
-                                <button class="btn btn-warning">Edit</button>
-                            </a>
-                            <a href="{{ path('app_restorePublisher', { 'id':publisher.id }) }}" title="View Publisher" data-toggle="tooltip">
-                                <button class="btn btn-dark">Restore</button>
-                            </a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Publisher's Name</th>
+                        <th scope="col">Net Worth ($, bn)</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Year Founded</th>
+                        <th scope="col">IsDeleted</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% set idVal = 0 %}
+
+                    {% for publisher in publishers %}
+                        <tr>
+                            {% set idVal = idVal + 1 %}
+                            <th scope="row">{{ idVal }}
+                            </th>
+                            <td>{{ publisher.name }}</td>
+                            <td>{{ publisher.value }}</td>
+                            <td>{{ publisher.country }}</td>
+                            <td>{{ publisher.year|date('Y') }}</td>
+                            <td>{{ publisher.isDeleted }}</td>
+                            <td>
+                                <a href="{{ path('app_editPublisher', { 'id':publisher.id }) }}" title="Edit Publisher" data-toggle="tooltip">
+                                    <button class="btn btn-warning">Edit</button>
+                                </a>
+                                <a href="{{ path('app_restorePublisher', { 'id':publisher.id }) }}" title="View Publisher" data-toggle="tooltip">
+                                    <button class="btn btn-dark">Restore</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
         </div>
+
         <div class="row">
-            <h3>Deleted Games List</h3>
+            <h3 class="col">Deleted Games List</h3>
+            <div class="col slideButton2">-</div>
         </div>
-        <div class="row">
+        <div class="row slideToggle2">
             <table class="table">
                 <thead>
                     <tr>

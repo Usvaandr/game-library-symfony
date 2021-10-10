@@ -6,14 +6,10 @@
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
     </head>
     <body>
 {#      Nav Bar #}
@@ -26,6 +22,19 @@
                 </div>
             </div>
         </nav>
+
+{#      PopUp #}
+        <div class="exit-intent-popup">
+            <div class="newsletter">
+                <b>Want to get updates to your mailbox? 📬</b>
+                <p>Subscribe to our newsletter!</p>
+                <input type="email" placeholder="Your email address" class="email" />
+                <button class="submit">Receive Newsletter</button>
+                <span class="close">x</span>
+            </div>
+        </div>
+
+{#      Flash Mesasges#}
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -51,4 +60,8 @@
             </div>
         </nav>
     </body>
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </html>

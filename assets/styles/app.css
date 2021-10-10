@@ -1,20 +1,25 @@
 .form1 {
     margin-top: 16px;
 }
+
 .updater-view-wrapper {
     width: 600px;
     margin: 0 auto;
 }
+
 .loginBody {
     font: 14px sans-serif;
 }
+
 .loginWrapper {
     width: 360px; padding: 20px;
 }
+
 body {
     margin-bottom: 56px;
     padding-bottom: 16px;
 }
+
 .exit-intent-popup {
     position: fixed;
     top: 0;
@@ -26,21 +31,21 @@ body {
     transform: translateY(60%) scale(0);
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
+
 .exit-intent-popup.visible {
     transform: translateY(0) scale(1);
 }
+
 .newsletter {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-/* Popup-specific styles */
-.newsletter {
     background: #FFF;
     padding: 10px;
     border-radius: 3px;
 }
+
 .close {
     position: absolute;
     top: 10px;
@@ -49,6 +54,7 @@ body {
     width: 10px;
     height: 10px;
 }
+
 .slideButton1, .slideButton2{
     background-color: #FF8800;
     border-radius: 25px;

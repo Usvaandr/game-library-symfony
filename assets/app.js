@@ -33,8 +33,6 @@ const mouseEvent = e => {
     if (shouldShowExitIntent) {
         document.removeEventListener('mouseout', mouseEvent);
         document.querySelector('.exit-intent-popup').classList.add('visible');
-
-
     }
 };
 
@@ -45,26 +43,12 @@ setTimeout(() => {
     document.addEventListener('keydown', exit);
 }, 5_000);
 
-$(document).ready(function(){
-    console.log("jQuery working properly");
+$(".js-slideButton1").click(function() {
+    $(this).html() == "-" ? $(this).html("+") : $(this).html("-");
+    $(".js-slideBox1").slideToggle();
 });
 
-$(".slideButton1").click(function(){
-    if($(this).html() == "-"){
-        $(this).html("+");
-    }
-    else{
-        $(this).html("-");
-    }
-    $(".slideToggle1").slideToggle();
-});
-
-$(".slideButton2").click(function(){
-    if($(this).html() == "-"){
-        $(this).html("+");
-    }
-    else{
-        $(this).html("-");
-    }
-    $(".slideToggle2").slideToggle();
+$(".js-slideButton2").click(function() {
+    $(this).html() == "-" ? $(this).html("+") : $(this).html("-");
+    $(".js-slideBox2").slideToggle();
 });
